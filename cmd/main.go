@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"todo-list/database"
 	"todo-list/handlers"
 )
@@ -36,8 +37,13 @@ func main() {
 		}
 	})
 
-	fmt.Println("Servvidor rodando na porta :8080 🚀")
-	log.Fatal(http.ListenAndServe(":8080", enableCORS(http.DefaultServeMux)))
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	fmt.Println("Servvidor rodando na porta 🚀", port)
+	log.Fatal(http.ListenAndServe(":"+port, enableCORS(http.DefaultServeMux)))
 
 
 }
